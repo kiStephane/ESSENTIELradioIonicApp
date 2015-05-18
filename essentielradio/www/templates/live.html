@@ -1,0 +1,56 @@
+<ion-view >
+
+    <ion-nav-title >
+        <div class= "center">
+            <img class="bandeau" ng-src="{{navBar_image}}" >
+        </div>
+
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-ios-star-outline" ng-click="addFavorite()">
+        </button>
+        <button class="button button-icon ion-ios-paper-outline" ng-click="toggleLeftSideMenu()">
+        </button>
+    </ion-nav-buttons>
+
+
+  <ion-content>
+      <div class="center">
+        <img ng-click="startOrStop()"
+             ng-src="{{title_image}}"
+             width="100%"
+             no-image>
+        </div>
+
+        <!--<button class="button" ng-click="startOrStop()">Play/Pauses</button>-->
+
+      <!--<div class="center">
+          <button class="button icon-left ion-social-twitter button-calm" ng-click="shareOnTwitter()"></button>
+          <button class="button icon-left ion-android-share-alt button-calm" ng-click="shareOnOther()"></button>
+          <button class="button icon-left ion-star button-calm" ng-click="addFavorite()"> Ajouter en favori</button>
+      </div>-->
+
+
+      <ion-list>
+          <ion-item ng-repeat="next in nextCouple" class="item-thumbnail-left">
+              <img ng-src="{{ next.titre_image_mini }}"
+                   no-image>
+              <em id="coming"> Coming soon</em>
+              <h2>{{ next.artiste_nom }}  </h2>
+              <h4>{{ next.titre_nom }}</h4>
+          </ion-item>
+      </ion-list>
+
+
+
+  </ion-content>
+
+    <div class="bar bar-footer">
+           <div class="button-bar">
+                <a class="button" ng-click="switchRadioTo('fr')">Switch to fr </a>
+                <a class="button" ng-click="switchRadioTo('er')">Switch to er </a>
+            </div>
+
+    </div>
+
+</ion-view>

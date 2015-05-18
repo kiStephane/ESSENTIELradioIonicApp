@@ -1,0 +1,20 @@
+<ion-view view-title="Favori">
+    <ion-content>
+
+        <img ng-src="{{favorite.image}}" width="100%"
+             no-image >
+
+        <div class="center">
+            <h4>{{favorite.artist}} - {{favorite.title}}</h4>
+            <h5>Date d'enregistrement: {{favorite.date}}</h5>
+            <h5> Radio: {{favorite.radio}}</h5>
+        </div>
+
+         <a ng-click="deleteFromDetailView(favorite.id)"
+           class="button button-block button-assertive icon-right ion-trash-a"
+           href="#/app/favorites">
+            Supprimer
+        </a>
+
+    </ion-content>
+</ion-view>

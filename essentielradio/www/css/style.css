@@ -1,0 +1,42 @@
+/* Empty. Add your own CSS if you like */
+
+.center {
+/*position: relative;*/
+text-align: center;
+}
+
+.relative_position {
+    position: relative;
+}
+
+.bar { height: 85px; }
+
+.bandeau {
+/*width: 75%;*/
+}
+
+#coming{
+color: #11b8c0;
+}
+
+.er_button{
+    padding: 0;
+    border: none;
+    text-decoration:none;
+    background: url('../img/picto_webradio_kidz.svg') no-repeat center;
+}
+
+.fr_button{
+    padding: 0;
+    border: none;
+    text-decoration:none;
+    background: url('../img/picto_webradio_fr.svg') no-repeat center;
+}
+
+.podcast-frame {
+    display:block; /* force the iframe to display as block */
+    height:100%; /* assign 100% height */
+    width: 100%;
+    border:none;
+    min-height:500px;
+}

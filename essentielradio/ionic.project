@@ -1,0 +1,12 @@
+{
+  "name": "essentielradio",
+  "app_id": "a691bf8a",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

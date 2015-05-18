@@ -1,0 +1,12 @@
+<ion-view view-title="Suis ESSENTIEL partout">
+  <ion-content>
+      <div class="row responsive-sm">
+          <div class="col" ng-repeat="media in socialMedia">
+              <a ng-click="followUsOn(media.link)">
+                  <img src="{{media.img}}">
+              </a>
+          </div>
+      </div>
+
+  </ion-content>
+</ion-view>

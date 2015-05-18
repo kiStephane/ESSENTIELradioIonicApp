@@ -1,0 +1,12 @@
+<ion-view view-title="Podcasts">
+  <ion-content>
+      <div class="row responsive-md">
+          <div class="col" ng-repeat="podcast in podcasts">
+              <a href="#/app/podcasts/{{podcast.id}}">
+                  <img src="{{podcast.img}}">
+              </a>
+          </div>
+      </div>
+
+  </ion-content>
+</ion-view>

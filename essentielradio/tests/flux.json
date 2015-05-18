@@ -1,0 +1,36 @@
+{
+	"songOnAir":
+	{
+		"artiste_nom":"STF",
+		"titre_id":"25178",
+		"titre_nom":"Prisonnier du mensonge (feat. Eline)",
+		"titre_image":"http:\/\/www.essentielradio.com\/flux\/images\/stf-prisonier-du-mensonge.jpg",
+		"titre_lien":"","album_titre":"Prisonnier du mensonge",
+		"artiste_biographie":"",
+		"artiste_id":"2200",
+		"titre_diffusion_date":"2015-04-01 02:37:49",
+		"titre_duree":"03:41","titre_paroles":""
+	},
+
+	"nextSong1":
+	{
+		"titre_image_mini":"http:\/\/www.essentielradio.com\/flux\/images\/img\/json-no-filter_60x60.jpg",
+		"artiste_nom":"Json",
+		"titre_id":"25080",
+		"titre_nom":"Identity (feat. Jai)",
+		"titre_diffusion_date":"2015-04-26 22:41:44",
+		"titre_duree":"04:01",
+		"timestamp":"1430080904000"
+	},
+
+	"nextSong2":
+	{
+		"titre_image_mini":"http:\/\/www.essentielradio.com\/flux\/images\/img\/group-1-crew-stronger_60x60.jpg",
+		"artiste_nom":"Group 1 Crew",
+		"titre_id":"25276",
+		"titre_nom":"Rise From The Ashes",
+		"titre_diffusion_date":"2015-04-26 22:45:50",
+		"titre_duree":"03:12","timestamp":"1430081150000"
+	}
+
+}
