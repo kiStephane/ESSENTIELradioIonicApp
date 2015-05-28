@@ -6,13 +6,13 @@ angular.module('essentielradio.controllers', [])
 
 
 })
-    .controller("PodcastsCtrl", function($scope, podcastsServices){
+.controller("PodcastsCtrl", function($scope, podcastsServices){
         $scope.podcasts=podcastsServices.getPodcasts();
 
 
     })
 
-    .controller("PodcastCtrl", function($scope,$sce, $stateParams,podcastsServices){
+.controller("PodcastCtrl", function($scope,$sce, $stateParams,podcastsServices){
         $scope.podcast=podcastsServices.getPodcastById($stateParams.podcastId);
 
         // because of security matters to previne xss attacks
@@ -23,11 +23,39 @@ angular.module('essentielradio.controllers', [])
 
     })
 
-    .controller("FollowUsCtrl", function($scope, followUsServices){
+.controller("FollowUsCtrl", function($scope, followUsServices,$cordovaInAppBrowser,$ionicPlatform){
         $scope.socialMedia=followUsServices.getSocialMediaData();
-        $scope.followUsOn=function(link){
-            window.open(link, '_system', 'location=yes');
+        var options = {
+            location: 'yes',
+            clearcache: 'yes',
+            toolbar: 'no'
         };
+
+        $scope.followUsOn=function(link){
+            $ionicPlatform.ready(function() {
+                $cordovaInAppBrowser.open(link, '_system', options)
+                    .then(function(event) {
+                        // success
+                    })
+                    .catch(function(event) {
+                        // error
+                    });
+            });
+        };
+    })
+
+.controller("KnowUsCtrl", function($scope, config,$ionicSideMenuDelegate){
+        $scope.essentiel_bandeau=config.bandeau_presentation;
+        $scope.onSwipeRight=function(){
+            $ionicSideMenuDelegate.toggleLeft();
+        };
+
+        $scope.$on('$ionicView.enter', function(){
+            $ionicSideMenuDelegate.canDragContent(false);
+        });
+        $scope.$on('$ionicView.leave', function(){
+            $ionicSideMenuDelegate.canDragContent(true);
+        });
     })
 
 .controller('FavoritesCtrl', function($scope, $ionicPopup, $cordovaToast, favoritesServices) {
@@ -68,6 +96,54 @@ angular.module('essentielradio.controllers', [])
         };
 })
 
+.controller('LetransformeurCtrl', function($scope,$sce, podcastsServices) {
+        $scope.iframeSrc = $sce.trustAsResourceUrl(podcastsServices.getPodcastById("letransformeur").iframeSrc);
+})
+
+.controller('SupportUsCtrl', function($scope,config,$window,$ionicPlatform,$cordovaInAppBrowser){
+
+        var options = {
+            location: 'yes',
+            clearcache: 'yes',
+            toolbar: 'no'
+        };
+
+        $scope.banniere = config.banniere_soutenir_radio;
+        $scope.abonnementList=[
+            {text: "5 euros mensuels", value: "1 ballon",ballons:['1']},
+            {text: "10 euros mensuels", value: "2 ballons",ballons:['1','2'] },
+            {text: "15 euros mensuels", value: "3 ballons",ballons:['1','2','3'] }
+        ];
+        $scope.abonnement={
+            choix:""
+        };
+
+        $scope.open_paypal=function(){
+            $ionicPlatform.ready(function() {
+                $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options)
+                    .then(function(event) {
+                        // success
+                    })
+                    .catch(function(event) {
+                        // error
+                    });
+            });
+        };
+
+        $scope.open_paypal_don_unique=function(){
+            $ionicPlatform.ready(function() {
+                $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options)
+                    .then(function(event) {
+                        // success
+                    })
+                    .catch(function(event) {
+                        // error
+                    });
+            });
+        };
+
+})
+
 
 .controller('LiveCtrl', function ($scope, $http,$rootScope, $timeout,$ionicPopup, $cordovaToast,
                                   $cordovaSocialSharing, radioServices, dataServices, favoritesServices,
@@ -76,6 +152,11 @@ angular.module('essentielradio.controllers', [])
     $scope.navBar_image = radioServices.getCurrentHeader();
     $scope.picto_webradio_fr=config.picto_webradio_fr;
     $scope.picto_webradio_er=config.picto_webradio_er;
+    $scope.picto_webradio_kidz=config.picto_webradio_kidz;
+
+    $scope.play_pause=config.play_image;
+        $scope.carre_noir=config.carre_noir;
+
 
     $scope.setErrorImg=function(){
             //this.onerror=null;
@@ -109,12 +190,9 @@ angular.module('essentielradio.controllers', [])
                 moment.tz(dataServices.getStartTime($scope.theSongAfter),config.tz));
                 newRequest(false);
         }
-
         $timeout(function() {
             whenTimerExpire();
         }, milliseconds);
-
-
     };
     var whenTimerExpire=function(){
         $scope.artist_name = $scope.nextSong.artiste_nom;
@@ -153,15 +231,17 @@ angular.module('essentielradio.controllers', [])
        if (radioServices.isPlaying() == true){
            //The user want to stop the radio
            radioServices.stop(media);
+           $scope.play_pause=config.play_image;
        }else{
            //The user want to play
            $scope.createAndPlay();
+           $scope.play_pause=config.pause_image;
        }
    };
    
    $scope.createAndPlay = function(){
            media = new Media(radioServices.getCurrentRadioUrl(), function(){
-            //Success
+                    //Success
             }, function(){
                     //Error
             }, function(){
@@ -172,7 +252,7 @@ angular.module('essentielradio.controllers', [])
    };
 
    
-   $scope.switchRadioTo = function(radioId) {
+   $scope.switchRadioTo=function(radioId) {
        var status = radioServices.switchTo(radioId, media);
        if(status){
            newRequest(true);
@@ -186,7 +266,7 @@ angular.module('essentielradio.controllers', [])
        }
    };
 
-   $scope.addFavorite = function(){
+   $scope.addFavorite=function(){
        var songOnAir = $scope.currentSong;
 
        var favorite = {
@@ -230,8 +310,6 @@ angular.module('essentielradio.controllers', [])
        $ionicSideMenuDelegate.toggleRight();
        //$rootScope.current_lyrics=$scope.currentSong.titre_paroles;
    };
-
-   
        
  });
 

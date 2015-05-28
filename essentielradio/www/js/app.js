@@ -21,11 +21,10 @@ angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentie
           window.plugin.notification.local.promptForPermission();
     }
 
-
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider
 
   .state('app', {
@@ -107,13 +106,37 @@ angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentie
     url: "/knowus",
     views: {
       'menuContent': {
-        templateUrl: "templates/knowus.html"
+        templateUrl: "templates/knowus.html",
+          controller: 'KnowUsCtrl'
       }
     }
   })
+
+      .state('app.letransformeur', {
+          url: "/letransformeur",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/letransformeur.html",
+                  controller: 'LetransformeurCtrl'
+              }
+          }
+      })
+
+      .state('app.supportus', {
+          url: "/supportus",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/supportus.html",
+                  controller: 'SupportUsCtrl'
+              }
+          }
+      })
 
   ;
 
   // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/live');
-});
+
+    $ionicConfigProvider.tabs.position('bottom'); //other values: top
+
+    });

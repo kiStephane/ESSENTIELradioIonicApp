@@ -9,15 +9,26 @@ text-align: center;
     position: relative;
 }
 
-.bar { height: 85px; }
 
-.bandeau {
-/*width: 75%;*/
+.image_jaquette {
+    z-index : 2;
 }
 
-#coming{
-color: #11b8c0;
+.play_pause {
+    position : relative;
+    z-index : 3;
+    top:-160px;
 }
+
+
+.bar {  }
+
+
+.color_essentiel{
+    color: #02cbd2;
+}
+
+
 
 .er_button{
     padding: 0;
@@ -38,5 +49,138 @@ color: #11b8c0;
     height:100%; /* assign 100% height */
     width: 100%;
     border:none;
-    min-height:500px;
+    min-height:530px;
+}
+
+.wide-as-needed {
+    overflow: scroll;
+    white-space: nowrap;
+}
+.scroll {
+    min-width: 100%;
+}
+
+.tabs .tab-item .icon.fr {
+    height: 100%;
+    background: url('../img/picto_webradio_fr.svg') no-repeat 50%;
+    background-size:contain;
+}
+
+.tabs .tab-item .icon.er {
+    height: 100%;
+    background: url('../img/picto_webradio_kidz.svg') no-repeat 50%;
+    background-size:contain;
+}
+
+
+
+/* ***** Custom icons ***** */
+
+.icon_podcast {
+    content: url('../img/icons/podcasts.svg');
+    width: 25px;
+}
+
+.icon_onair {
+    content: url('../img/icons/OnAir.svg');
+    width: 25px;
+}
+
+.icon_onair_mini {
+    content: url('../img/icons/OnAir.svg');
+    width: 20px;
+}
+
+.icon_favoris {
+    content: url('../img/icons/favorisBLEU.svg');
+    width: 25px;
+}
+
+.icon_quisommesnous {
+    content: url('../img/icons/quiSommesNous.svg');
+    width: 25px;
+}
+
+.icon_suisER {
+    content: url('../img/icons/suisER.svg');
+    width: 25px;
+}
+
+.icon_paroles {
+    content: url('../img/icons/paroles.svg');
+    width: 25px;
+}
+
+.icon_partage {
+      content: url('../img/icons/partageBLEU.svg');
+      width: 25px;
+  }
+
+.icon_partage_mini {
+    content: url('../img/icons/partageBLEU.svg');
+    width: 20px;
+}
+
+.icon_letransformeur {
+    content: url('../img/icons/leTransformeur.svg');
+    width: 25px;
+}
+
+
+.icon_coeur_aile {
+    content: url('../img/icons/coeur_aile.svg');
+    width: 37px;
+}
+
+.icon_reveil {
+    content: url('../img/icons/reveil.svg');
+    width: 30px;
+}
+/* *************************** */
+
+.bgimg {
+    background-image: url('../img/carre_noir.svg');
+    width: 100%;
+}
+
+.my-icon:before,
+.my-icon{
+    font-size:25px !important;
+    display:block !important;
+}
+
+.col{
+    /*margin:10px;
+    height: 40px;*/
+}
+
+.bar-footer{
+    height: 90px;
+    margin-bottom: -10px;
+    padding: 0;
+}
+
+.row{
+    /*margin:0px;*/
+}
+
+.share_button{
+    right:60px !important;
+}
+
+.spacer {padding-top:3em;}
+
+
+#sabonner_label{
+    font-size: 25px;
+    background-color: #111111;
+}
+
+#image_bouton_abonnement{
+    display: block;
+    text-align: center;
+}
+#option_abonnement{
+    display: block;
+    text-align: center;
 }

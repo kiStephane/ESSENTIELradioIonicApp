@@ -7,50 +7,121 @@
 
     </ion-nav-title>
     <ion-nav-buttons side="right">
-        <button class="button button-icon ion-ios-star-outline" ng-click="addFavorite()">
-        </button>
-        <button class="button button-icon ion-ios-paper-outline" ng-click="toggleLeftSideMenu()">
+        <button class="button button-icon" ng-click="toggleLeftSideMenu()">
+            <i class="icon icon_paroles my-icon"></i>
         </button>
     </ion-nav-buttons>
 
 
   <ion-content>
-      <div class="center">
-        <img ng-click="startOrStop()"
-             ng-src="{{title_image}}"
-             width="100%"
-             no-image>
-        </div>
-
-        <!--<button class="button" ng-click="startOrStop()">Play/Pauses</button>-->
-
-      <!--<div class="center">
-          <button class="button icon-left ion-social-twitter button-calm" ng-click="shareOnTwitter()"></button>
-          <button class="button icon-left ion-android-share-alt button-calm" ng-click="shareOnOther()"></button>
-          <button class="button icon-left ion-star button-calm" ng-click="addFavorite()"> Ajouter en favori</button>
-      </div>-->
-
+      <div class="center" back-img="{{carre_noir}}">
+          <br>
+          <div class="image_jaquette">
+              <img  ng-click="startOrStop()"
+                    ng-src="{{title_image}}"
+                    no-image/>
+          </div>
+          <div class="play_pause">
+              <img  ng-src="{{play_pause}}" ng-click="startOrStop()" />
+          </div>
+      </div>
 
       <ion-list>
+          <ion-item class="item item-button-right">
+              <i class="icon icon_onair_mini"></i>
+              {{currentSong.artiste_nom}},<span class="color_essentiel"> {{currentSong.titre_nom}}</span>
+              <button class="button button-calm button-clear" ng-click="addFavorite()">
+                  <i class="icon icon_favoris"></i>
+              </button>
+
+              <button class="button button-calm  button-clear share_button" ng-click="shareOnOther()">
+                  <i class="icon icon_partage"></i>
+              </button>
+
+          </ion-item>
+
           <ion-item ng-repeat="next in nextCouple" class="item-thumbnail-left">
               <img ng-src="{{ next.titre_image_mini }}"
                    no-image>
-              <em id="coming"> Coming soon</em>
+              <em id="coming" class="color_essentiel"> Coming soon</em>
               <h2>{{ next.artiste_nom }}  </h2>
               <h4>{{ next.titre_nom }}</h4>
           </ion-item>
       </ion-list>
-
-
+      <div class="spacer"></div>
 
   </ion-content>
 
-    <div class="bar bar-footer">
-           <div class="button-bar">
-                <a class="button" ng-click="switchRadioTo('fr')">Switch to fr </a>
-                <a class="button" ng-click="switchRadioTo('er')">Switch to er </a>
-            </div>
 
-    </div>
+
+    <!--<ion-tabs class=" tabs-striped tabs-color-dark tabs-icon-only">
+
+        <ion-tab
+                title="er"
+                icon-on="er"
+                icon-off="er"
+                on-select="switchRadioTo('er')">
+
+        </ion-tab>
+
+        <ion-tab
+                title="fr"
+                icon-on="fr"
+                icon-off="fr"
+                on-select="switchRadioTo('fr')">
+
+        </ion-tab>
+
+        <ion-tab
+                title="kidzs"
+                icon-on="er"
+                icon-off="er"
+                on-select="switchRadioTo('kidzs')">
+
+        </ion-tab>
+
+        <ion-tab
+                title="partage"
+                icon-on="icon_partage"
+                icon-off="icon_partage"
+                on-select="shareOnOther()">
+        </ion-tab>
+
+    </ion-tabs>-->
+
+    <ion-footer-bar align-title="center" class="bar-footer">
+        <div class="row">
+            <div class="col"
+                 back-img2="{{picto_webradio_er}}"
+                 ng-click="switchRadioTo('er')">
+            </div>
+            <div class="col"
+                 back-img2="{{picto_webradio_fr}}"
+                 ng-click="switchRadioTo('fr')">
+            </div>
+            <div class="col"
+                 back-img2="{{picto_webradio_kidz}}"
+                 ng-click="switchRadioTo('kidzs')">
+            </div>
+            <div class="col"
+                 back-img2="{{picto_webradio_kidz}}"
+                 ng-click="switchRadioTo('kidzs')">
+            </div>
+            <div class="col"
+                 back-img2="{{picto_webradio_kidz}}"
+                 ng-click="switchRadioTo('kidzs')">
+            </div>
+        </div>
+
+        <!--<ion-scroll direction="x" style="height: 1000px">
+            <button class="button button-clear button_switch" ng-click="switchRadioTo('fr')">
+                <img ng-src="{{picto_webradio_fr}}" />
+            </button>
+            <button class="button button-clear button_switch" ng-click="switchRadioTo('er')">
+                <img ng-src="{{picto_webradio_er}}" />
+            </button>
+        </ion-scroll>-->
+
+    </ion-footer-bar>
 
 </ion-view>

@@ -1,0 +1,92 @@
+<ion-view view-title="Soutiens ta radio">
+    <ion-content>
+        <div class="center">
+            <img ng-src="{{banniere}}" width="100%">
+        </div>
+
+        <!--<div class="list">
+            <div id="sabonner_label" class="item item-divider">
+                <span class="color_essentiel">S'abonner</span>
+            </div>
+            <ion-radio ng-repeat="item in abonnementList"
+                       ng-value="item.value"
+                       ng-model="abonnement.choix">
+
+                <i class="icon ion-fireball" ng-repeat="ballon in item.ballons"></i>
+                {{ item.text }}
+            </ion-radio>
+        </div>-->
+
+        <div class="center">
+            <div class="list">
+
+                <div class="item item-divider">
+                    S'abonner
+                </div>
+
+                <form class="item" action="https://www.mobile.paypal.com/cgi-bin/webscr" method="post" target="_system">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="ZRFZMDM4ZWPZG">
+
+                    <input type="hidden" name="on0">
+
+                    <div id="option_abonnement">
+
+                        <select name="os0">
+                            <option value="1 ballon">J'accroche 1 ballon - 5 euros mensuels</option>
+                            <option value="2 ballons">J'accroche 2 ballons - 10 euros mensuels</option>
+                            <option value="3 ballons">J'accroche 3 ballons - 15 euros mensuels</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <div id="image_bouton_abonnement">
+                        <input
+                                type="image"
+                                border="0"
+                                src="http://www.essentielradio.com/media/Page/soutenir/jemabonne-v2.png"
+                                name="submit"
+                                alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+                    </div >
+
+                    <img width="1"
+                         border="0"
+                         height="1"
+                         alt="" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif">
+                </form>
+
+
+                <div class="item item-divider">
+                    Faire un don unique
+                </div>
+                <form class="item" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden"
+                           name="hosted_button_id"
+                           value="9WJEYLC2ARQMU">
+                    <input type="image" border="0"
+                           src="http://www.essentielradio.com/media/Page/soutenir/jafaisundon-v2.png"
+                           name="submit"
+                           alt="PayPal - la solution de paiement en ligne la plus simple et la plus sécurisée !">
+
+                    <img width="1"
+                         border="0"
+                         height="1"
+                         alt=""
+                         src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif">
+                </form>
+
+
+            </div>
+
+
+
+
+
+
+            <!--<button class="button " ng-click="open_paypal()"> Je m'abonne </button>
+            <button class="button " ng-click="open_paypal_don_unique()"> Je fais un don unique </button>-->
+        </div>
+
+
+    </ion-content>
+</ion-view>

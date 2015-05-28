@@ -15,32 +15,45 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-dark">
-       <img ng-src="{{menuPicto}}" width="100%">
+        <h1 class="title">BIEN <span class="color_essentiel">+</span> QUE DE LA RADIO</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/live">
-            <i class="icon ion-android-volume-up"></i>
+            <i class="icon icon_onair"></i>
           On Air
         </ion-item>
+          <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/podcasts">
+              <i class="icon icon_podcast"></i>
+              Podcasts
+          </ion-item>
+          <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/letransformeur">
+            <i class="icon icon_letransformeur"></i>
+          Le Transformeur
+        </ion-item>
         <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/favorites">
-            <i class="icon ion-android-star-outline"></i>
+            <i class="icon icon_favoris"></i>
           Favoris 
         </ion-item>
-        <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/podcasts">
-            <i class="icon ion-headphone"></i>
-          Podcasts
-        </ion-item>         
-        <!--<ion-item class ="item-icon-right" nav-clear menu-close href="#/app/alarms">
-            <i class="icon ion-android-alarm-clock"></i>
+
+        <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/alarms">
+            <i class="icon icon_reveil"></i>
           Réveille toi
-        </ion-item>-->
-        <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/followus">
-          <i class="icon ion-android-favorite-outline"></i>
-          Suis ESSENTIEL partout
         </ion-item>
+
+          <div class="item item-divider">
+              Connais ta radio
+          </div>
+        <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/followus">
+          <i class="icon icon_suisER"></i>
+          Suis ESSENTIEL
+        </ion-item>
+          <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/supportus">
+              <i class="icon icon_coeur_aile"></i>
+              Soutiens ta radio
+          </ion-item>
         <ion-item class ="item-icon-left" nav-clear menu-close href="#/app/knowus">
-            <i class="icon ion-information-circled"></i>
+            <i class="icon icon_quisommesnous"></i>
           Qui sommes nous ?
         </ion-item>
 

@@ -4,18 +4,33 @@ services.constant("config", {
         "dataUrl": "http://www.essentielradio.com/app/playlist_short.php?radioOnAir=",
         "erId": "er",
         "frId": "fr",
+        "kidzsId":"kidzs",
+        "banniere_soutenir_radio":"http://www.essentielradio.com/media/Page/soutenir/pagesoutien-banniere-630v7.jpg",
+        "bandeau_presentation":"img/er-bandeau.jpg",
         "entete_fr":"img/en-tete_LOGO_fr.svg",
         "entete_kidz":"img/en-tete_LOGO_kidz.svg",
-        "entete_er":"img/en-tete_LOGO_kidz.svg",
+        "entete_er":"img/en-tete_LOGO_er.svg",
         "menu_picto":"img/er-bandeau.jpg",
         "picto_webradio_fr":"img/picto_webradio_fr.svg",
         "picto_webradio_er":"img/picto_webradio_kidz.svg",
+        "picto_webradio_kidz":"img/picto_webradio_kidz.svg",
+        "carre_noir":"img/carre_noir.svg",
         "onErrorEr":"http://www.essentielradio.com/flux/notfound/er_258x258.jpg",
         "onErrorFr":"http://www.essentielradio.com/flux/notfound/fr_258x258.jpg",
-        "onErrorKidz":"",
-
+        "onErrorKidz":"http://www.essentielradio.com/flux/notfound/kidz_258x258.jpg",
+        "play_image":"img/play_pause/boutonPlay.png",
+        "pause_image":"img/play_pause/boutonPause.png",
         "streamUrl":{"er":"http://str81.streamakaci.com:80/",
-                     "fr":"http://essentielradioing.streamakaci.com/essentielfr.mp3"},
+                     "fr":"http://essentielradioing.streamakaci.com/essentielfr.mp3",
+                     "kidzs":"http://essentielradioing.streamakaci.com/essentielsweet.mp3"},
+        "soutenirER":{
+          "lien_don_unique":"",
+          "abonnement":{
+                "1_ballon":"",
+                "2_ballon":"",
+                "3_ballon":""
+            }
+        },
         "tz":"Europe/Paris",
         "PackedZoneString":"Europe/Paris|PMT WET WEST CEST CET WEMT|-9.l 0 -10 -20 -10 -20|0121212121212121212121212121212121212121212121212123434352543434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434|-2nco8.l cNb8.l HA0 19A0 1iM0 11c0 1oo0 Wo0 1rc0 QM0 1EM0 UM0 1u00 10o0 1io0 1wo0 Rc0 1a00 1fA0 1cM0 1cM0 1io0 17c0 1fA0 1a00 1io0 1a00 1io0 17c0 1fA0 1a00 1io0 17c0 1cM0 1cM0 1a00 1io0 1cM0 1cM0 1a00 1fA0 1io0 17c0 1cM0 1cM0 1a00 1fA0 1io0 1qM0 Df0 Ik0 5M30 WM0 1fA0 1cM0 Vx0 hB0 1aq0 16M0 1ekn0 1cL0 1fC0 1a00 1fA0 1cM0 1cM0 1cM0 1fA0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00"
         
@@ -54,7 +69,7 @@ services.factory('radioServices', function(config){
               return config.entete_er;
           }else if (currentRadio=="fr"){
               return config.entete_fr;
-          }else if(currentRadio=="kidz"){
+          }else if(currentRadio=="kidzs"){
               return config.entete_kidz;
           }
         },
@@ -96,6 +111,8 @@ services.factory('radioServices', function(config){
                 return "ESSENTIEL radio";
             }else if(currentRadio=="fr"){
                 return "ESSENTIEL fr";
+            }else if (currentRadio=="kidzs"){
+                return "ESSENTIEL kidzs";
             }
         },
         
@@ -104,10 +121,12 @@ services.factory('radioServices', function(config){
         },
         
         getCurrentRadioUrl : function(){
-            if(currentRadio=="er"){
+            if(currentRadio == "er"){
                 currentStreamUrl=config.streamUrl.er;
             }else if(currentRadio=="fr"){
                 currentStreamUrl= config.streamUrl.fr;
+            }else if(currentRadio=="kidzs"){
+                currentStreamUrl=config.streamUrl.kidzs;
             }
             return currentStreamUrl;
         },
@@ -241,43 +260,43 @@ services.factory("followUsServices", function(){
 
     return {
         getSocialMediaLink:function(id){
-            var media={}
+            var media={};
             switch(id) {
                 case "twitter":
                     media={
-                        link:"twitter://user?screen_name=ESSENTIELradio",
-                        img:"img/reseaux_sociaux/Twitter-icon1.png"
+                        link:"https://instagram.com/ESSENTIELradio",//twitter://user?screen_name=ESSENTIELradio
+                        img:"img/reseaux_sociaux/SuisER_twitter.svg"
                     };
                     break;
                 case "facebook":
                     media={
                         link:"http://www.facebook.com/ESSENTIELradio",
-                        img:"img/reseaux_sociaux/Facebook-icon1.png"
+                        img:"img/reseaux_sociaux/SuisER_facebook.svg"
                     };
                     break;
                 case "youtube":
                     media={
                         link:"http://www.youtube.com/user/ESSENTIELradio",
-                        img:"img/reseaux_sociaux/Youtube-icon1.png"
+                        img:"img/reseaux_sociaux/SuisER_youtube.svg"
                     };
                     break;
                 case "pinterest":
                     media={
                         link:"https://www.pinterest.com/essentielradio/",
-                        img:"img/reseaux_sociaux/Pinterest-icon1.png"
+                        img:"img/reseaux_sociaux/SuisER_pinterest.svg"
                     };
                     break;
 
                 case "soundcloud":
                     media={
                         link:"http://soundcloud.com/essentiel-radio",
-                        img:"img/reseaux_sociaux/Soundcloud-icon1.png"
+                        img:"img/reseaux_sociaux/SuisER_soundcloud.svg"
                     };
                     break;
                 case "instagram":
                     media = {
                         link:"http://instagram.com/essentielradio",
-                        img:"img/reseaux_sociaux/Instagram-icon1.png"
+                        img:"img/reseaux_sociaux/SuisER_instagram.svg"
                     };
                     break;
                 default :
@@ -314,8 +333,7 @@ services.factory("socialMediaSharingServices", function(){
 });
 
 services.factory('podcastsServices', function(config){
-    var podcasts=["campusacademy", "letransformeur", "sequence7","journaldugospel","lactuautrement",
-        "espoir180", "lyononline", "goodnews","topfeminin"];
+    var podcasts=["campusacademy", "sequence7","journaldugospel","lactuautrement"];
 
     return {
         getPodcastById: function(id){
@@ -323,7 +341,7 @@ services.factory('podcastsServices', function(config){
             switch(id) {
                 case "campusacademy":
                     podcast={
-                        img:"img/emissions/campusacademy_150x150.jpg",
+                        img:"img/emissions/podcast_campus.svg",
                         id:"campusacademy",
                         fullName:"Campus Academy",
                         iframeSrc:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/58814059&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
@@ -331,7 +349,7 @@ services.factory('podcastsServices', function(config){
                     break;
                 case "letransformeur":
                     podcast={
-                        img:"img/emissions/Le-Transformeur-v2_150x150.jpg",
+                        img:"img/emissions/podcast_transformeur.svg",
                         id:"letransformeur",
                         fullName:"Le Transformeur",
                         iframeSrc:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/13480956&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
@@ -340,7 +358,7 @@ services.factory('podcastsServices', function(config){
                     break;
                 case "sequence7":
                     podcast={
-                        img:"img/emissions/Sequence7_150x150.jpg",
+                        img:"img/emissions/podcast_S7.svg",
                         id:"sequence7",
                         fullName:"Sequence 7",
                         iframeSrc:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/58734359&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
@@ -349,7 +367,7 @@ services.factory('podcastsServices', function(config){
                     break;
                 case "journaldugospel":
                     podcast={
-                        img:"img/emissions/journaldugospel2014_150x150.jpg",
+                        img:"img/emissions/podcast_jdg.svg",
                         id:"journaldugospel",
                         fullName:"Journal Du Gospel",
                         iframeSrc:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/13447697&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
@@ -358,7 +376,7 @@ services.factory('podcastsServices', function(config){
                     break;
                 case "lactuautrement":
                     podcast={
-                        img:"img/emissions/lactu-autrement_150x150.jpg",
+                        img:"img/emissions/podcast_actu.svg",
                         id:"lactuautrement",
                         fullName:"L'actu Autrement",
                         iframeSrc:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/59707014&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"
@@ -367,7 +385,7 @@ services.factory('podcastsServices', function(config){
                     break;
                 case "espoir180":
                     podcast={
-                        img:"img/emissions/Espoir180_150x150.jpg",
+                        img:"img/emissions/podcast_S7.svg",
                         id:"espoir180",
                         fullName:"Espoir 180",
                         iframeSrc:""
