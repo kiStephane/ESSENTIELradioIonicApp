@@ -1,5 +1,33 @@
 <ion-view view-title="Mes réveils">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon" ng-click="create()">
+            <i class="icon ion-ios-plus-outline my-icon"></i>
+        </button>
+    </ion-nav-buttons>
+
   <ion-content>
-    <h1>Alarms</h1>
+    <div class="list card" ng-repeat="alarm in allAlarms">
+        <div class="item item-button-right">
+            Matin en semaine
+            <button class="button button-calm button-clear">
+                <i class="icon ion-edit"></i>
+
+            </button >
+            <button class="button button-calm button-clear share_button">
+                <i class="icon ion-android-delete"></i>
+
+            </button>
+
+        </div>
+        <button class="item item-icon-left">
+            <i class="icon icon_reveil"></i>
+            Heure
+        </button>
+        <button class="item item-icon-left">
+            <i class="icon ion-calendar"></i>
+            Date
+        </button>
+    </div>
   </ion-content>
+
 </ion-view>

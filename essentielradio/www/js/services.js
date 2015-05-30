@@ -14,6 +14,18 @@ services.constant("config", {
         "picto_webradio_fr":"img/picto_webradio_fr.svg",
         "picto_webradio_er":"img/picto_webradio_kidz.svg",
         "picto_webradio_kidz":"img/picto_webradio_kidz.svg",
+        "default_alarm":{
+            repeat: false,
+            days:[
+                {text: "Lundi", checked: false},
+                {text: "Mardi", checked: false},
+                {text: "Mercredi", checked: false},
+                {text: "Jeudi", checked: false},
+                {text: "Vendredi", checked: false},
+                {text: "Samedi", checked: false},
+                {text: "Dimanche", checked: false}
+            ]
+        },
         "carre_noir":"img/carre_noir.svg",
         "onErrorEr":"http://www.essentielradio.com/flux/notfound/er_258x258.jpg",
         "onErrorFr":"http://www.essentielradio.com/flux/notfound/fr_258x258.jpg",
@@ -265,38 +277,38 @@ services.factory("followUsServices", function(){
                 case "twitter":
                     media={
                         link:"https://instagram.com/ESSENTIELradio",//twitter://user?screen_name=ESSENTIELradio
-                        img:"img/reseaux_sociaux/SuisER_twitter.svg"
+                        img:"img/reseaux_sociaux/twitter.png"
                     };
                     break;
                 case "facebook":
                     media={
                         link:"http://www.facebook.com/ESSENTIELradio",
-                        img:"img/reseaux_sociaux/SuisER_facebook.svg"
+                        img:"img/reseaux_sociaux/facebook.png"
                     };
                     break;
                 case "youtube":
                     media={
                         link:"http://www.youtube.com/user/ESSENTIELradio",
-                        img:"img/reseaux_sociaux/SuisER_youtube.svg"
+                        img:"img/reseaux_sociaux/youtube.png"
                     };
                     break;
                 case "pinterest":
                     media={
                         link:"https://www.pinterest.com/essentielradio/",
-                        img:"img/reseaux_sociaux/SuisER_pinterest.svg"
+                        img:"img/reseaux_sociaux/pinterest.png"
                     };
                     break;
 
                 case "soundcloud":
                     media={
                         link:"http://soundcloud.com/essentiel-radio",
-                        img:"img/reseaux_sociaux/SuisER_soundcloud.svg"
+                        img:"img/reseaux_sociaux/soundcloud.png"
                     };
                     break;
                 case "instagram":
                     media = {
                         link:"http://instagram.com/essentielradio",
-                        img:"img/reseaux_sociaux/SuisER_instagram.svg"
+                        img:"img/reseaux_sociaux/instagram.png"
                     };
                     break;
                 default :
@@ -327,6 +339,17 @@ services.factory("socialMediaSharingServices", function(){
         },
         getDefaultMessage:function(artist_name, title){
             return "J'écoute "+ title+" de "+artist_name+" sur l'appli mobile d'"+DEFAULT_NAME+" ... et J'AIME.";
+        }
+    }
+
+});
+
+
+services.factory("alarmsServices", function(){
+
+    return{
+        getAll:function(){
+            return [{"id":1}, {"id":2}]; //TODO Refactor
         }
     }
 

@@ -56,6 +56,43 @@ angular.module('essentielradio.controllers', [])
         $scope.$on('$ionicView.leave', function(){
             $ionicSideMenuDelegate.canDragContent(true);
         });
+})
+
+.controller("AlarmsCtrl", function($scope, config,alarmsServices,$ionicModal,$timeout){
+        $scope.allAlarms=alarmsServices.getAll();
+
+        // Form data for the login modal
+        $scope.alarmData =config.default_alarm;
+
+
+        // Create the login modal that we will use later
+        $ionicModal.fromTemplateUrl('templates/createalarm.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        // Triggered in the login modal to close it
+        $scope.close= function() {
+            $scope.modal.hide();
+        };
+
+        // Open the login modal
+        $scope.create = function() {
+            $scope.modal.show();
+        };
+
+        // Perform the login action when the user submits the login form
+        $scope.saveAlarm = function() {
+            console.log('Doing login', $scope.alarmData);
+
+            // Simulate a login delay. Remove this and replace with your login
+            // code if using a login system
+            $timeout(function() {
+                $scope.close();
+            }, 1000);
+        };
+
     })
 
 .controller('FavoritesCtrl', function($scope, $ionicPopup, $cordovaToast, favoritesServices) {
@@ -86,7 +123,7 @@ angular.module('essentielradio.controllers', [])
         };
 })
 
-.controller('FavoriteCtrl', function($scope,$cordovaToast,favoritesServices ,$stateParams) {
+.controller('FavoriteCtrl', function($scope, $cordovaToast, favoritesServices ,$stateParams) {
         $scope.favorite = favoritesServices.getFavoriteById(parseInt($stateParams.favoriteId));
 
         $scope.deleteFromDetailView=function(id){

@@ -25,7 +25,8 @@
     "org.apache.cordova.media",
     "org.apache.cordova.splashscreen",
     "org.apache.cordova.dialogs",
-    "org.apache.cordova.inappbrowser"
+    "org.apache.cordova.inappbrowser",
+    "de.appplant.cordova.plugin.local-notification"
   ],
   "cordovaPlatforms": [
     "android",

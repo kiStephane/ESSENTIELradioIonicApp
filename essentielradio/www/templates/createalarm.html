@@ -1,0 +1,42 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Nouveau réveil</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="close()">Fermer</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="saveAlarm()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Titre</span>
+                    <input type="text" ng-model="alarmData.username">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Date</span>
+                    <input type="time" ng-model="alarmData.time">
+                </label>
+
+                <ion-toggle toggle-class="toggle-calm" ng-model="alarmData.repeat">
+                    <span class="input-label">Repéter</span>
+                </ion-toggle>
+
+
+                <div class="list" ng-hide="!alarmData.repeat">
+
+                    <ion-checkbox ng-repeat="day in alarmData.days"
+                                  ng-model="day.checked"
+                                  ng-checked="day.checked">
+                        {{ day.text }}
+                    </ion-checkbox>
+                </div>
+
+                <label class="item">
+                    <button class="button button-block button-calm" type="submit">Sauvegarder</button>
+                </label>
+
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

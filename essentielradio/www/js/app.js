@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentielradio.controllers','essentielradio.services', 'ngCordova'])
+angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentielradio.controllers',
+    'essentielradio.services', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -86,7 +87,8 @@ angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentie
     url: "/alarms",
     views: {
       'menuContent': {
-        templateUrl: "templates/alarms.html"
+        templateUrl: "templates/alarms.html",
+          controller: 'AlarmsCtrl'
       }
     }
   })
