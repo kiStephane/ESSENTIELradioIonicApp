@@ -6,6 +6,7 @@ angular.module('essentielradio.controllers', [])
 
 
 })
+
 .controller("PodcastsCtrl", function($scope, podcastsServices){
         $scope.podcasts=podcastsServices.getPodcasts();
 
@@ -58,12 +59,11 @@ angular.module('essentielradio.controllers', [])
         });
 })
 
-.controller("AlarmsCtrl", function($scope, config,alarmsServices,$ionicModal,$timeout){
+.controller("AlarmsCtrl", function($scope, config,alarmsServices,$ionicModal,$cordovaToast){
         $scope.allAlarms=alarmsServices.getAll();
 
-        // Form data for the login modal
-        $scope.alarmData =config.default_alarm;
-
+        // Form data for the creation modal
+        $scope.alarmData = config.default_alarm;
 
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/createalarm.html', {
@@ -72,25 +72,34 @@ angular.module('essentielradio.controllers', [])
             $scope.modal = modal;
         });
 
-        // Triggered in the login modal to close it
+        // Triggered in the creation modal to close it
         $scope.close= function() {
             $scope.modal.hide();
         };
 
-        // Open the login modal
+        // Open the creation modal
         $scope.create = function() {
             $scope.modal.show();
         };
 
-        // Perform the login action when the user submits the login form
+        // Perform the creation action when the user submits the login form
         $scope.saveAlarm = function() {
             console.log('Doing login', $scope.alarmData);
+            alarmsServices.addAlarm($scope.alarmData);
+            $scope.doRefresh();
+            $scope.close();
+        };
 
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
-            $timeout(function() {
-                $scope.close();
-            }, 1000);
+        $scope.deleteAlarm = function(id){
+            alarmsServices.deleteAlarm(id);
+            $cordovaToast.showShortCenter("Alarm has been deleted");
+            $scope.doRefresh();
+        };
+
+        $scope.doRefresh=function(){
+            $scope.allAlarms = alarmsServices.getAll();
+            // Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
         };
 
     })
@@ -184,7 +193,8 @@ angular.module('essentielradio.controllers', [])
 
 .controller('LiveCtrl', function ($scope, $http,$rootScope, $timeout,$ionicPopup, $cordovaToast,
                                   $cordovaSocialSharing, radioServices, dataServices, favoritesServices,
-                                  socialMediaSharingServices,$sce,$ionicSideMenuDelegate,config) {
+                                  socialMediaSharingServices,$sce,$ionicSideMenuDelegate,config,$cordovaSpinnerDialog,
+                                  $ionicPlatform) {
 
     $scope.navBar_image = radioServices.getCurrentHeader();
     $scope.picto_webradio_fr=config.picto_webradio_fr;
@@ -192,7 +202,7 @@ angular.module('essentielradio.controllers', [])
     $scope.picto_webradio_kidz=config.picto_webradio_kidz;
 
     $scope.play_pause=config.play_image;
-        $scope.carre_noir=config.carre_noir;
+    $scope.carre_noir=config.carre_noir;
 
 
     $scope.setErrorImg=function(){
@@ -211,6 +221,8 @@ angular.module('essentielradio.controllers', [])
             return config.onErrorEr;
         }else if(radioServices.getCurrentRadio()==config.frId){
             return config.onErrorFr;
+        }else if(radioServices.getCurrentRadio()==config.kidzsId){
+            return config.onErrorKidz;
         }
     };
 
@@ -271,27 +283,44 @@ angular.module('essentielradio.controllers', [])
            $scope.play_pause=config.play_image;
        }else{
            //The user want to play
+           $ionicPlatform.ready(function() {
+               $cordovaSpinnerDialog.show(null,null, true);
+           });
            $scope.createAndPlay();
-           $scope.play_pause=config.pause_image;
        }
    };
    
    $scope.createAndPlay = function(){
            media = new Media(radioServices.getCurrentRadioUrl(), function(){
                     //Success
+               $ionicPlatform.ready(function() {
+                   $cordovaSpinnerDialog.hide();
+               });
+
             }, function(){
                     //Error
-            }, function(){
+
+            }, function(status){
                     //Status
+               // Media.MEDIA_RUNNING = 2;
+               if(status==2){
+                   $ionicPlatform.ready(function() {
+                       $cordovaSpinnerDialog.hide();
+                   });
+               }
             });
            
            radioServices.play(media);
+           $scope.play_pause=config.pause_image;
    };
 
    
    $scope.switchRadioTo=function(radioId) {
        var status = radioServices.switchTo(radioId, media);
        if(status){
+           $ionicPlatform.ready(function() {
+               $cordovaSpinnerDialog.show(null,null, true);
+           });
            newRequest(true);
            $scope.createAndPlay();
            $scope.navBar_image = radioServices.getCurrentHeader();

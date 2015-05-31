@@ -62,7 +62,6 @@ services.factory('imgOnError', function(config, radioServices){
             }
         };
     }
-
 );
 
 services.factory('radioServices', function(config){
@@ -156,8 +155,10 @@ services.factory('radioServices', function(config){
         
         switchTo : function(radioId, media){
             if (radioId != currentRadio){
-                media.stop();
-                media.release();
+                if(playingState){
+                    media.stop();
+                    media.release();
+                }
                 currentRadio=radioId;          
                 return true;
             }
@@ -199,7 +200,6 @@ services.factory('dataServices', function(config,radioServices,$http){
 
 
 services.factory('favoritesServices', function(config,$rootScope,$window){
-
     return {
         getFavorites:function(){
             if ($window.localStorage.getItem("favorites") == null){
@@ -345,14 +345,63 @@ services.factory("socialMediaSharingServices", function(){
 });
 
 
-services.factory("alarmsServices", function(){
+services.factory("alarmsServices", function($rootScope,$window){
 
-    return{
-        getAll:function(){
-            return [{"id":1}, {"id":2}]; //TODO Refactor
+    return {
+        getAll: function () {
+            if ($window.localStorage.getItem("alarms") == null) {
+                $window.localStorage.setItem("alarms", JSON.stringify([]));
+                return [];
+            } else {
+                return JSON.parse($window.localStorage.getItem("alarms"));
+            }
+        },
+
+        addAlarm: function (alarmObject) {
+            var alarms = JSON.parse($window.localStorage.getItem("alarms"));
+            alarms.push(alarmObject);
+            $window.localStorage.setItem("alarms", JSON.stringify(alarms));
+            $rootScope.$broadcast('alarmAdded');
+        },
+
+        deleteAlarm: function (id) {
+            var alarms = JSON.parse($window.localStorage.getItem("alarms"));
+            for (var i = 0; i < alarms.length; i++) {
+                if (alarms[i].id === id) {
+                    alarms.splice(i, 1);
+                    break;
+                }
+            }
+            $window.localStorage.setItem("alarms", JSON.stringify(alarms));
+            $rootScope.$broadcast('alarmDeleted');
+        },
+        getAlarmById: function (id) {
+
+            var alarms = JSON.parse($window.localStorage.getItem("alarms"), function (k, v) {
+                if(k === "time") {return new Date(v);}
+                return v;
+            });
+
+            for (var i=0; i < alarms.length; i++){
+                if(alarms[i].id === id){
+                    return alarms[i];
+                }
+            }
+
+        },
+
+        getIdCounter: function () {
+            if ($window.localStorage.getItem("alarmIdCounter") == null) {
+                $window.localStorage.setItem("alarmIdCounter", JSON.stringify(1));
+                return 0;
+            } else {
+                var id = JSON.parse($window.localStorage.getItem("alarmIdCounter"));
+                $window.localStorage.setItem("alarmIdCounter", JSON.stringify(id + 1));
+                return id;
+            }
+
         }
     }
-
 });
 
 services.factory('podcastsServices', function(config){
