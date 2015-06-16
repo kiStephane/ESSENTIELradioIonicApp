@@ -11,9 +11,6 @@ services.constant("config", {
         "entete_kidz":"img/en-tete_LOGO_kidz.svg",
         "entete_er":"img/en-tete_LOGO_er.svg",
         "menu_picto":"img/er-bandeau.jpg",
-        "picto_webradio_fr":"img/picto_webradio_fr.svg",
-        "picto_webradio_er":"img/picto_webradio_kidz.svg",
-        "picto_webradio_kidz":"img/picto_webradio_kidz.svg",
         "default_alarm":{
             repeat: false,
             days:[
@@ -24,17 +21,17 @@ services.constant("config", {
                 {text: "Vendredi", checked: false},
                 {text: "Samedi", checked: false},
                 {text: "Dimanche", checked: false}
+            ],
+            notifIds:[
+
             ]
         },
         "carre_noir":"img/carre_noir.svg",
-        "onErrorEr":"http://www.essentielradio.com/flux/notfound/er_258x258.jpg",
-        "onErrorFr":"http://www.essentielradio.com/flux/notfound/fr_258x258.jpg",
-        "onErrorKidz":"http://www.essentielradio.com/flux/notfound/kidz_258x258.jpg",
         "play_image":"img/play_pause/boutonPlay.png",
         "pause_image":"img/play_pause/boutonPause.png",
         "streamUrl":{"er":"http://str81.streamakaci.com:80/",
                      "fr":"http://essentielradioing.streamakaci.com/essentielfr.mp3",
-                     "kidzs":"http://essentielradioing.streamakaci.com/essentielsweet.mp3"},
+                     "kidz":"http://essentielradioing.streamakaci.com/essentielsweet.mp3"},
         "soutenirER":{
           "lien_don_unique":"",
           "abonnement":{
@@ -43,21 +40,20 @@ services.constant("config", {
                 "3_ballon":""
             }
         },
-        "tz":"Europe/Paris",
-        "PackedZoneString":"Europe/Paris|PMT WET WEST CEST CET WEMT|-9.l 0 -10 -20 -10 -20|0121212121212121212121212121212121212121212121212123434352543434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434343434|-2nco8.l cNb8.l HA0 19A0 1iM0 11c0 1oo0 Wo0 1rc0 QM0 1EM0 UM0 1u00 10o0 1io0 1wo0 Rc0 1a00 1fA0 1cM0 1cM0 1io0 17c0 1fA0 1a00 1io0 1a00 1io0 17c0 1fA0 1a00 1io0 17c0 1cM0 1cM0 1a00 1io0 1cM0 1cM0 1a00 1fA0 1io0 17c0 1cM0 1cM0 1a00 1fA0 1io0 1qM0 Df0 Ik0 5M30 WM0 1fA0 1cM0 Vx0 hB0 1aq0 16M0 1ekn0 1cL0 1fC0 1a00 1fA0 1cM0 1cM0 1cM0 1fA0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00"
+        "tz":"Europe/Paris"
         
     });
 
-services.factory('imgOnError', function(config, radioServices){
+services.factory('imgOnError', function(radioServices,IMAGE_URLS){
         return {
             getErrorImg:function(){
                 var currentRadio=radioServices.getCurrentRadio();
                 if(currentRadio=='er'){
-                    return config.onErrorEr;
+                    return IMAGE_URLS.ON_ERROR_ER;
                 }else if (currentRadio=="fr"){
-                    return config.onErrorFr;
+                    return IMAGE_URLS.ON_ERROR_FR;
                 }else if(currentRadio=="kidz"){
-                    return config.onErrorKidz;
+                    return IMAGE_URLS.ON_ERROR_KIDZ;
                 }
             }
         };
@@ -80,7 +76,7 @@ services.factory('radioServices', function(config){
               return config.entete_er;
           }else if (currentRadio=="fr"){
               return config.entete_fr;
-          }else if(currentRadio=="kidzs"){
+          }else if(currentRadio=="kidz"){
               return config.entete_kidz;
           }
         },
@@ -122,8 +118,8 @@ services.factory('radioServices', function(config){
                 return "ESSENTIEL radio";
             }else if(currentRadio=="fr"){
                 return "ESSENTIEL fr";
-            }else if (currentRadio=="kidzs"){
-                return "ESSENTIEL kidzs";
+            }else if (currentRadio=="kidz"){
+                return "ESSENTIEL kidz";
             }
         },
         
@@ -136,8 +132,8 @@ services.factory('radioServices', function(config){
                 currentStreamUrl=config.streamUrl.er;
             }else if(currentRadio=="fr"){
                 currentStreamUrl= config.streamUrl.fr;
-            }else if(currentRadio=="kidzs"){
-                currentStreamUrl=config.streamUrl.kidzs;
+            }else if(currentRadio=="kidz"){
+                currentStreamUrl=config.streamUrl.kidz;
             }
             return currentStreamUrl;
         },
@@ -378,7 +374,7 @@ services.factory("alarmsServices", function($rootScope,$window){
         getAlarmById: function (id) {
 
             var alarms = JSON.parse($window.localStorage.getItem("alarms"), function (k, v) {
-                if(k === "time") {return new Date(v);}
+                if(k === "date") {return new Date(v);}
                 return v;
             });
 
@@ -390,16 +386,23 @@ services.factory("alarmsServices", function($rootScope,$window){
 
         },
 
-        getIdCounter: function () {
-            if ($window.localStorage.getItem("alarmIdCounter") == null) {
-                $window.localStorage.setItem("alarmIdCounter", JSON.stringify(1));
+        getIdAndIncrement:function(key){
+            if ($window.localStorage.getItem(key) == null) {
+                $window.localStorage.setItem(key, JSON.stringify(1));
                 return 0;
             } else {
-                var id = JSON.parse($window.localStorage.getItem("alarmIdCounter"));
-                $window.localStorage.setItem("alarmIdCounter", JSON.stringify(id + 1));
+                var id = JSON.parse($window.localStorage.getItem(key));
+                $window.localStorage.setItem(key, JSON.stringify(id + 1));
                 return id;
             }
+        },
 
+        getIdCounter: function () {
+            this.getIdAndIncrement("alarmIdCounter");
+        },
+
+        getNotifIdFromCounter:function(){
+            this.getIdAndIncrement("notifIdCounter");
         }
     }
 });

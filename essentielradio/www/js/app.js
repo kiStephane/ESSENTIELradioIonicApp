@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('essentielradio', ['ionic','essentielradio.directives', 'essentielradio.controllers',
-    'essentielradio.services','essentielradio.filters', 'ngCordova'])
+    'essentielradio.services','essentielradio.filters','essentielradio.config', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
